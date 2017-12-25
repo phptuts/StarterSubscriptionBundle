@@ -10,7 +10,8 @@ Subscription Bundle For Symfony
 ## Actions
 
 - Subscribe
-- Cancel
-- Update Card
 - Upgrade / Downgrade
+- Update Card
 - Resubscribe
+- Cancel
+
