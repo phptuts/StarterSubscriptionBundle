@@ -5,6 +5,8 @@ Subscription Bundle For Symfony
 
 ## Database Schema
 
+![Subscription Database](/docs/subscription_database.png)
+
 ## Payment Providers
 
 ## Actions
