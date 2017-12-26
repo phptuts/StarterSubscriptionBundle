@@ -1,4 +1,4 @@
-# StarterSubscriptionBundle
+# StarterSubscriptionBundle (WIP)
 
 ## Assumptions
 
@@ -60,6 +60,34 @@ As a < type of user >, I want < some goal > so that < some reason >
 
 ![Subscription Database](/docs/subscription_database.png)
 
+### Vendors Specific Subscription Fields
+
+- Stripe
+    - stripe_customer_id: A string representing the customer's account in stripe.
+    - stripe_subscription_id: A string representing the id of the stripe subscription.
+- iTunes
+    - itunes_reciept_blob: The giant encoded receipt that stores all the transactions for a user.
+    - itunes_original_purchase_date: The date the subscription was first purchased
+    - itunes_original_transaction_id: The original transaction id of the subscription.  Compare this stripe subscription id.  This transaction id will be attached to all recurring purchases.
+- Android
+    - android_token: The token sent by the app to verify the receipt.  Used in all transaction calls to get info on the subscription.
+    - android_auto_renewing: True means the subscription will auto renew.
+    - android_cancel_reason: A number representing why the user cancelled
+    - android_developer_payload: A developer-specified string that contains supplemental information about an order.	
+    - android_expiry_time: Time at which the subscription will expire
+    - android_payment_state: The payment state of the subscription:
+        - Payment pending
+        - Payment received
+        - Free trial
+    - android_start_time: Time at which the subscription was granted.
+    - android_cancellation_time: The time at which the subscription was canceled by the user.
+       
+### Plan Table
+
+- provider_plan_id: The payment provider's plan id, this would be the stripe plan id, itunes product id, etc.
+- show_plan: 1 means to show the plan on the frontend of the site.
+- price: Is an whole number to prevent weird division errors.
+
 ### Questions we want to answer
 
 - Does the user have access to a feature?
@@ -74,6 +102,7 @@ As a < type of user >, I want < some goal > so that < some reason >
 
 - Stripe
 - iTunes
+- Android
 
 ## Actions
 
@@ -85,3 +114,14 @@ As a < type of user >, I want < some goal > so that < some reason >
 - Refund
 - Sync with payment provider
 
+
+## Resources:
+
+- Android:
+    - [Android Api Subscriptions](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource)
+    - [Android Subscription Workflow](https://developer.android.com/google/play/billing/billing_subscriptions.html)
+- iTunes:
+    - [iTunes Receipt Validation](https://developer.apple.com/library/content/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateRemotely.html)
+- Stripe
+    - [Stripe API](https://stripe.com/docs/api)
+    - [Stripe Subscription Docs](https://stripe.com/docs/subscriptions/quickstart)
