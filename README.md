@@ -8,7 +8,8 @@
 - That we want a system that can use multiple payment providers, stripe, amazon, etc.
 - That the payment provider will handle subscription recurring billing.
 - That customer's will only be able to change plans within a payment provider.
-
+- That the customer will only be able to pay with currencies backed by a government, aka no bitcoin
+- That doctrine single inheritance table are better then the parent child tables because of less joins.
 
 ## Definitions
 
@@ -65,16 +66,19 @@ As a < type of user >, I want < some goal > so that < some reason >
 - Stripe
     - stripe_customer_id: A string representing the customer's account in stripe.
     - stripe_subscription_id: A string representing the id of the stripe subscription.
+    - stripe_status: Represents the stripe status of a subscription.
+    - stripe_card_type: MasterCard, Visa, Discover, etc
+    - stripe_card_expiration_date: When the card will expire.
+    - stripe_card_last_4: The last 4 digits of the credit card.
+    - stripe_card_expiration_date: The credit card expiration date.
 - iTunes
     - itunes_reciept_blob: The giant encoded receipt that stores all the transactions for a user.
     - itunes_original_purchase_date: The date the subscription was first purchased
     - itunes_original_transaction_id: The original transaction id of the subscription.  Compare this stripe subscription id.  This transaction id will be attached to all recurring purchases.
 - Android
     - android_token: The token sent by the app to verify the receipt.  Used in all transaction calls to get info on the subscription.
-    - android_auto_renewing: True means the subscription will auto renew.
     - android_cancel_reason: A number representing why the user cancelled
     - android_developer_payload: A developer-specified string that contains supplemental information about an order.	
-    - android_expiry_time: Time at which the subscription will expire
     - android_payment_state: The payment state of the subscription:
         - Payment pending
         - Payment received
